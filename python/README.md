@@ -1,0 +1,1 @@
+Undervisning i Python programmering for Coding pirates i Hørsholm
