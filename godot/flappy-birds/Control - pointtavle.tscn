@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Control - pointtavle.gd" type="Script" id=1]
+[ext_resource path="res://FlappyBirdy.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.313726 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 2 )
+
+[node name="Control - pointtavle" type="Control"]
+margin_right = 100.0
+margin_bottom = 55.0
+script = ExtResource( 1 )
+
+[node name="Panel - ramme" type="Panel" parent="."]
+margin_right = 112.0
+margin_bottom = 65.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Label - point" type="Label" parent="."]
+margin_left = 23.0
+margin_top = 31.0
+margin_right = 103.0
+margin_bottom = 66.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "####"
+align = 2
+valign = 1
+
+[node name="Label - highscore" type="Label" parent="."]
+margin_left = 46.0
+margin_top = 14.0
+margin_right = 102.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "####"
+align = 2
+
+[node name="Label" type="Label" parent="."]
+margin_left = 4.0
+margin_top = 13.0
+margin_right = 44.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "High"
