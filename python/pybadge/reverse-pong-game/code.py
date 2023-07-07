@@ -1,11 +1,15 @@
 import board
 import displayio
+import time
 from adafruit_display_shapes.rect import Rect
 from adafruit_display_shapes.circle import Circle
 
 # Passer til Pybadge skærmen
 SCREEN_WIDTH = 160
 SCREEN_HEIGHT = 128
+
+FPS = 60
+FPS_FORSINKELSE = 1 / FPS
 
 # Lav display
 splash = displayio.Group()
@@ -28,5 +32,12 @@ splash.append(paddle_venstre)
 paddle_hoejre = Rect(SCREEN_WIDTH - bredde, 0, bredde, hoejde, fill=0x0)
 splash.append(paddle_hoejre)
 
+sidst_opdateret = 0
+nu = 0
+
 while True:
-    pass
+    nu = time.monotonic()
+    if sidst_opdateret + FPS_FORSINKELSE <= nu:
+        paddle_venstre.y = paddle_venstre.y + 1
+        paddle_hoejre.y = paddle_hoejre.y + 1
+        sidst_opdateret = nu
