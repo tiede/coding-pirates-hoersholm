@@ -1,6 +1,7 @@
 import board
 import displayio
 from adafruit_display_shapes.rect import Rect
+from adafruit_display_shapes.circle import Circle
 
 # Passer til Pybadge skærmen
 SCREEN_WIDTH = 160
@@ -21,7 +22,9 @@ splash.append(bg_sprite)
 rektangel = Rect(0, 0, 80, 40, fill=0x00FF00)
 splash.append(rektangel)
 
-
+# Lav en cirkel
+cirkel = Circle(100, 100, 20, fill=0xFFFF00, outline=0xFFFFFF)
+splash.append(cirkel)
 
 while True:
     pass
