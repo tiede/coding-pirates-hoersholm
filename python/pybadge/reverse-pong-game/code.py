@@ -19,8 +19,10 @@ color_palette[1] = 0xFFFF00
 bg_sprite = displayio.TileGrid(color_bitmap, x=0, y=0, pixel_shader=color_palette)
 splash.append(bg_sprite)
 
-# Lav et punkt
-color_bitmap[100, 100] = 1
+# Tegn en streg
+for i in range(0, 160):
+    color_bitmap[i, 100] = 1
+
 
 while True:
     pass
