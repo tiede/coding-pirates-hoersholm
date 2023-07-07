@@ -18,8 +18,10 @@ bg_sprite = displayio.TileGrid(color_bitmap, x=0, y=0, pixel_shader=color_palett
 splash.append(bg_sprite)
 
 # Lav en firkant
-rect = Rect(0, 0, 80, 40, fill=0x00FF00)
-splash.append(rect)
+rektangel = Rect(0, 0, 80, 40, fill=0x00FF00)
+splash.append(rektangel)
+
+
 
 while True:
     pass
