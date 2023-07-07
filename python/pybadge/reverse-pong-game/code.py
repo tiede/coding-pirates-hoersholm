@@ -34,10 +34,22 @@ splash.append(paddle_hoejre)
 
 sidst_opdateret = 0
 nu = 0
+nedad = True
 
 while True:
     nu = time.monotonic()
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
-        paddle_venstre.y = paddle_venstre.y + 1
-        paddle_hoejre.y = paddle_hoejre.y + 1
+        if (nedad):
+            paddle_venstre.y = paddle_venstre.y + 1
+            paddle_hoejre.y = paddle_hoejre.y + 1
+        else:
+            paddle_venstre.y = paddle_venstre.y - 1
+            paddle_hoejre.y = paddle_hoejre.y - 1
+
+        if paddle_venstre.y>= SCREEN_HEIGHT - hoejde:
+            nedad = False
+
+        if (paddle_venstre.y <= 0):
+            nedad = True
+
         sidst_opdateret = nu
