@@ -19,18 +19,16 @@ color_palette[1] = 0xFFFF00
 bg_sprite = displayio.TileGrid(color_bitmap, x=0, y=0, pixel_shader=color_palette)
 splash.append(bg_sprite)
 
-# Tegn et kors
-midt_x = int(SCREEN_WIDTH / 2)
-midt_y = int(SCREEN_HEIGHT / 2)
-for i in range(0, SCREEN_WIDTH):
-    color_bitmap[i, midt_y - 1] = 1
-    color_bitmap[i, midt_y] = 1
-    color_bitmap[i, midt_y + 1] = 1
+# Tegn en firkant
+x = 30
+y = 30
+bredde = 50
+hoejde = 50
 
-for i in range(0, SCREEN_HEIGHT):
-    color_bitmap[midt_x - 1, i] = 1
-    color_bitmap[midt_x, i] = 1
-    color_bitmap[midt_x + 1, i] = 1
+
+for l in range(0, hoejde):
+    for p in range(0, bredde):
+        color_bitmap[x + p, y + l] = 1
 
 while True:
     pass
