@@ -1,5 +1,6 @@
 import board
 import displayio
+from adafruit_display_shapes.rect import Rect
 
 # Passer til Pybadge skærmen
 SCREEN_WIDTH = 160
@@ -15,6 +16,10 @@ color_palette = displayio.Palette(1)
 color_palette[0] = 0x1177bb
 bg_sprite = displayio.TileGrid(color_bitmap, x=0, y=0, pixel_shader=color_palette)
 splash.append(bg_sprite)
+
+# Lav en firkant
+rect = Rect(0, 0, 80, 40, fill=0x00FF00)
+splash.append(rect)
 
 while True:
     pass
