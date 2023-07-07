@@ -13,18 +13,14 @@ board.DISPLAY.show(splash)
 
 # Lav baggrund med farven 0x1177bb
 color_bitmap = displayio.Bitmap(SCREEN_WIDTH, SCREEN_HEIGHT, 2)
-color_palette = displayio.Palette(1)
+color_palette = displayio.Palette(2)
 color_palette[0] = 0x1177bb
+color_palette[1] = 0xFFFF00
 bg_sprite = displayio.TileGrid(color_bitmap, x=0, y=0, pixel_shader=color_palette)
 splash.append(bg_sprite)
 
-# Lav en firkant
-rektangel = Rect(0, 0, 80, 40, fill=0x00FF00)
-splash.append(rektangel)
-
-# Lav en cirkel
-cirkel = Circle(100, 100, 20, fill=0xFFFF00, outline=0xFFFFFF)
-splash.append(cirkel)
+# Lav et punkt
+color_bitmap[100, 100] = 1
 
 while True:
     pass
