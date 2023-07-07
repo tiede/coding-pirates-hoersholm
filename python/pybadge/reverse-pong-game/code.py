@@ -23,10 +23,14 @@ splash.append(bg_sprite)
 midt_x = int(SCREEN_WIDTH / 2)
 midt_y = int(SCREEN_HEIGHT / 2)
 for i in range(0, SCREEN_WIDTH):
+    color_bitmap[i, midt_y - 1] = 1
     color_bitmap[i, midt_y] = 1
+    color_bitmap[i, midt_y + 1] = 1
 
 for i in range(0, SCREEN_HEIGHT):
+    color_bitmap[midt_x - 1, i] = 1
     color_bitmap[midt_x, i] = 1
+    color_bitmap[midt_x + 1, i] = 1
 
 while True:
     pass
