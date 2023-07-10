@@ -38,6 +38,7 @@ splash.append(paddle_hoejre.rect)
 # Tegn bold
 bold = Circle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 3, fill=0x00FF00, outline=0xFF00FF)
 splash.append(bold)
+bold_til_hoejre = True
 
 sidst_opdateret = 0
 nu = 0
@@ -47,4 +48,11 @@ while True:
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
         paddle_venstre.update()
         paddle_hoejre.update()
+
+        # Flyt bold
+        if bold_til_hoejre == True:
+            bold.x += 1
+        else:
+            bold.x -= 1
+
         sidst_opdateret = nu
