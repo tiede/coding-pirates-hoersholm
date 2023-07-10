@@ -34,12 +34,12 @@ class Ball:
 
         # Få bold til at flytte sig
         # Check for op knap
-        if self.badger.button.up > 0:
+        if self.badger.button.up > 0 and self.y > 0:
             # Flyt op
             self.y -= 1
         
         # Check for ned knap
-        if self.badger.button.down > 0:
+        if self.badger.button.down > 0 and self.y < self.skaerm_hoejde - (self.diameter+1)*2:
             # move down
             self.y += 1
 
