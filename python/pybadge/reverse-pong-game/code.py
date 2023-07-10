@@ -43,7 +43,9 @@ bold = Ball(3, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2), SCREEN_HEIGHT, SCREEN_
 splash.append(bold.circle)
 
 # Score
-score_label = Label(terminalio.FONT, text="0", color=0xFFFFFF, x=int(SCREEN_WIDTH/2) - 5, y=5)
+score_label = Label(terminalio.FONT, text="0", color=0xFBCEB1) # x=int(SCREEN_WIDTH/2) - 5, y=5)
+score_label.anchored_position = (int(SCREEN_WIDTH / 2), 0)
+score_label.anchor_point = (0.5, 0)
 splash.append(score_label)
 
 sidst_opdateret = 0
