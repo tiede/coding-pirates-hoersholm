@@ -48,6 +48,6 @@ while True:
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
         paddle_venstre.update()
         paddle_hoejre.update()
-        bold.update()
+        bold.update(paddle_venstre, paddle_hoejre)
 
         sidst_opdateret = nu

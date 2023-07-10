@@ -23,7 +23,7 @@ class Ball:
         # PyBadger er en klasse der gør det nemt at håndtere knapper
         self.badger = pybadger
         
-    def update(self):
+    def update(self, paddle_venstre, paddle_hoejre):
         print("Inde i ball update")
 
         # Hvis vi bevæger os mod højre skal vi lægge til x ellers trække fra
@@ -42,6 +42,17 @@ class Ball:
         if self.badger.button.down > 0:
             # move down
             self.y += 1
+
+        # Check om vi rammer paddle
+        if self.x == paddle_venstre.x + paddle_venstre.bredde and paddle_venstre.y < self.y < paddle_venstre.y + paddle_venstre.hoejde:
+            # Hvis vi rammer venstre paddle så skift retning til at bevæge sig mod højre
+            self.hoejre = True
+            print("Kollision venstre paddle")
+            
+        if self.x == paddle_hoejre.x - paddle_hoejre.bredde and paddle_hoejre.y < self.y < paddle_hoejre.y + paddle_hoejre.hoejde:
+            # Hvis vi rammer højre paddle så skift retning til at bevæge sig mod venstre
+            self.hoejre = False
+            print("Kollision højre paddle")        
 
         # Opdater cirkelens position
         self.circle.x = self.x
