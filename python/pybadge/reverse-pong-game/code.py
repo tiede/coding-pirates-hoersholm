@@ -4,6 +4,8 @@ import time
 from adafruit_display_shapes.rect import Rect
 from adafruit_display_shapes.circle import Circle
 
+from paddle import Paddle
+
 # Passer til Pybadge skærmen
 SCREEN_WIDTH = 160
 SCREEN_HEIGHT = 128
@@ -26,30 +28,19 @@ splash.append(bg_sprite)
 # Tegn paddles
 bredde = 5
 hoejde = 20
-paddle_venstre = Rect(0, 0, bredde, hoejde, fill=0x0)
-splash.append(paddle_venstre)
 
-paddle_hoejre = Rect(SCREEN_WIDTH - bredde, 0, bredde, hoejde, fill=0x0)
-splash.append(paddle_hoejre)
+paddle_venstre = Paddle(bredde, hoejde, 0, 0, SCREEN_HEIGHT)
+splash.append(paddle_venstre.rect)
+
+paddle_hoejre = Paddle(bredde, hoejde, SCREEN_WIDTH - bredde, 0, SCREEN_HEIGHT)
+splash.append(paddle_hoejre.rect)
 
 sidst_opdateret = 0
 nu = 0
-nedad = True
 
 while True:
     nu = time.monotonic()
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
-        if (nedad):
-            paddle_venstre.y = paddle_venstre.y + 1
-            paddle_hoejre.y = paddle_hoejre.y + 1
-        else:
-            paddle_venstre.y = paddle_venstre.y - 1
-            paddle_hoejre.y = paddle_hoejre.y - 1
-
-        if paddle_venstre.y>= SCREEN_HEIGHT - hoejde:
-            nedad = False
-
-        if (paddle_venstre.y <= 0):
-            nedad = True
-
+        paddle_venstre.update()
+        paddle_hoejre.update()
         sidst_opdateret = nu
