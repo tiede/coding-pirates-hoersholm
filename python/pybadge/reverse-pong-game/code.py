@@ -35,6 +35,10 @@ splash.append(paddle_venstre.rect)
 paddle_hoejre = Paddle(bredde, hoejde, SCREEN_WIDTH - bredde, 0, SCREEN_HEIGHT)
 splash.append(paddle_hoejre.rect)
 
+# Tegn bold
+bold = Circle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 3, fill=0x00FF00, outline=0xFF00FF)
+splash.append(bold)
+
 sidst_opdateret = 0
 nu = 0
 
