@@ -4,6 +4,7 @@ from adafruit_pybadger import pybadger
 class Ball:
     def __init__(self, diameter, start_x, start_y, skaerm_hoejde, skaerm_bredde):
         # Gem i variabler
+        self.score = 0
         self.diameter = diameter
         self.x = start_x
         self.y = start_y
@@ -23,7 +24,7 @@ class Ball:
         # PyBadger er en klasse der gør det nemt at håndtere knapper
         self.badger = pybadger
         
-    def update(self, paddle_venstre, paddle_hoejre):
+    def update(self, paddle_venstre, paddle_hoejre, score_label):
         print("Inde i ball update")
 
         # Hvis vi bevæger os mod højre skal vi lægge til x ellers trække fra
@@ -47,21 +48,28 @@ class Ball:
         if self.x == paddle_venstre.x + paddle_venstre.bredde and paddle_venstre.y < self.y < paddle_venstre.y + paddle_venstre.hoejde:
             # Hvis vi rammer venstre paddle så skift retning til at bevæge sig mod højre
             self.hoejre = True
+            self.score = self.score + 1
             print("Kollision venstre paddle")
             
         if self.x == paddle_hoejre.x - paddle_hoejre.bredde and paddle_hoejre.y < self.y < paddle_hoejre.y + paddle_hoejre.hoejde:
             # Hvis vi rammer højre paddle så skift retning til at bevæge sig mod venstre
             self.hoejre = False
+            self.score = self.score + 1
             print("Kollision højre paddle")
 
         # Start forfra hvis vi rammer venstre eller højre kant
         if self.x <= 0:
             self.x = self.start_x
             self.y = self.start_y
+            self.score = 0
         if self.x >= self.skaerm_bredde- self.diameter:
             self.x = self.start_x
             self.y = self.start_y
+            self.score = 0
 
         # Opdater cirkelens position
         self.circle.x = self.x
         self.circle.y = self.y
+
+        # Opdater score
+        score_label.text = str(self.score)

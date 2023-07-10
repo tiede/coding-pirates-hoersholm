@@ -1,8 +1,10 @@
 import board
 import displayio
 import time
+import terminalio
 from adafruit_display_shapes.rect import Rect
 from adafruit_display_shapes.circle import Circle
+from adafruit_display_text.label import Label
 
 from paddle import Paddle
 from ball import Ball
@@ -40,6 +42,10 @@ splash.append(paddle_hoejre.rect)
 bold = Ball(3, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2), SCREEN_HEIGHT, SCREEN_WIDTH)
 splash.append(bold.circle)
 
+# Score
+score_label = Label(terminalio.FONT, text="0", color=0xFFFFFF, x=int(SCREEN_WIDTH/2) - 5, y=5)
+splash.append(score_label)
+
 sidst_opdateret = 0
 nu = 0
 
@@ -48,6 +54,6 @@ while True:
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
         paddle_venstre.update()
         paddle_hoejre.update()
-        bold.update(paddle_venstre, paddle_hoejre)
+        bold.update(paddle_venstre, paddle_hoejre, score_label)
 
         sidst_opdateret = nu
