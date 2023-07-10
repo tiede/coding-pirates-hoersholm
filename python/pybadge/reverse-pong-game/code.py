@@ -5,6 +5,7 @@ from adafruit_display_shapes.rect import Rect
 from adafruit_display_shapes.circle import Circle
 
 from paddle import Paddle
+from ball import Ball
 
 # Passer til Pybadge skærmen
 SCREEN_WIDTH = 160
@@ -36,9 +37,8 @@ paddle_hoejre = Paddle(bredde, hoejde, SCREEN_WIDTH - bredde, 0, SCREEN_HEIGHT)
 splash.append(paddle_hoejre.rect)
 
 # Tegn bold
-bold = Circle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 3, fill=0x00FF00, outline=0xFF00FF)
-splash.append(bold)
-bold_til_hoejre = True
+bold = Ball(3, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2), SCREEN_HEIGHT, SCREEN_WIDTH)
+splash.append(bold.circle)
 
 sidst_opdateret = 0
 nu = 0
@@ -48,11 +48,6 @@ while True:
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
         paddle_venstre.update()
         paddle_hoejre.update()
-
-        # Flyt bold
-        if bold_til_hoejre == True:
-            bold.x += 1
-        else:
-            bold.x -= 1
+        bold.update()
 
         sidst_opdateret = nu
