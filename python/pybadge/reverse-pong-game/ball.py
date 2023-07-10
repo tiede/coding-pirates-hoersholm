@@ -52,7 +52,15 @@ class Ball:
         if self.x == paddle_hoejre.x - paddle_hoejre.bredde and paddle_hoejre.y < self.y < paddle_hoejre.y + paddle_hoejre.hoejde:
             # Hvis vi rammer højre paddle så skift retning til at bevæge sig mod venstre
             self.hoejre = False
-            print("Kollision højre paddle")        
+            print("Kollision højre paddle")
+
+        # Start forfra hvis vi rammer venstre eller højre kant
+        if self.x <= 0:
+            self.x = self.start_x
+            self.y = self.start_y
+        if self.x >= self.skaerm_bredde- self.diameter:
+            self.x = self.start_x
+            self.y = self.start_y
 
         # Opdater cirkelens position
         self.circle.x = self.x
