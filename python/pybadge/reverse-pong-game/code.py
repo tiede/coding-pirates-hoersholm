@@ -28,12 +28,12 @@ splash.append(bg_sprite)
 
 # Tegn paddles
 bredde = 5
-hoejde = 20
+hoejde = 30
 
 paddle_venstre = Paddle(bredde, hoejde, 0, 0, SCREEN_HEIGHT)
 splash.append(paddle_venstre.rect)
 
-paddle_hoejre = Paddle(bredde, hoejde, SCREEN_WIDTH - bredde, 0, SCREEN_HEIGHT)
+paddle_hoejre = Paddle(bredde, hoejde, SCREEN_WIDTH - bredde, SCREEN_HEIGHT - hoejde, SCREEN_HEIGHT)
 splash.append(paddle_hoejre.rect)
 
 # Tegn bold
