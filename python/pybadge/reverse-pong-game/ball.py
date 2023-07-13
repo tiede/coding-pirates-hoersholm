@@ -13,59 +13,51 @@ class Ball:
         
         # Lav cirkel
         self.circle = Circle(self.x, self.y, self.diameter, fill=0x00FF00, outline=0xFF00FF)
-        
-        # default til at bevæge sig mod højre
-        self.hoejre = True
-        
+                
         # Skærm højde og bredde kan fortælle os om vi bevæger os ud af skærmen
         self.skaerm_hoejde = skaerm_hoejde
         self.skaerm_bredde = skaerm_bredde
 
         # PyBadger er en klasse der gør det nemt at håndtere knapper
         self.badger = pybadger
-        
-    def update(self, paddle_venstre, paddle_hoejre, score_label):
-        print("Inde i ball update")
 
-        # Hvis vi bevæger os mod højre skal vi lægge til x ellers trække fra
-        if self.hoejre == True:
-            self.x += 1
-        else:
-            self.x -= 1
+        self.retning_x_y = [1, 1]
 
-        # Få bold til at flytte sig
-        # Check for op knap
-        if self.badger.button.up > 0 and self.y > 0:
-            # Flyt op
-            self.y -= 1
-        
-        # Check for ned knap
-        if self.badger.button.down > 0 and self.y < self.skaerm_hoejde - (self.diameter+1)*2:
-            # move down
-            self.y += 1
+    def update(self, paddle_hoejre, score_label):
+        # print("Inde i ball update")
 
-        # Check om vi rammer paddle
-        if self.x == paddle_venstre.x + paddle_venstre.bredde and paddle_venstre.y < self.y < paddle_venstre.y + paddle_venstre.hoejde:
-            # Hvis vi rammer venstre paddle så skift retning til at bevæge sig mod højre
-            self.hoejre = True
-            self.score = self.score + 1
-            print("Kollision venstre paddle")
-            
-        if self.x == paddle_hoejre.x - paddle_hoejre.bredde and paddle_hoejre.y < self.y < paddle_hoejre.y + paddle_hoejre.hoejde:
+        # Start forfra hvis vi rammer højre kant
+        if self.x >= self.skaerm_bredde:
+            self.x = self.start_x
+            self.y = self.start_y
+            self.score = 0
+
+        # Check om vi rammer paddle            
+        if self.x == paddle_hoejre.x - self.diameter and paddle_hoejre.y < self.y < paddle_hoejre.y + paddle_hoejre.hoejde:
             # Hvis vi rammer højre paddle så skift retning til at bevæge sig mod venstre
-            self.hoejre = False
+            self.retning_x_y[0] = - self.retning_x_y[0]
             self.score = self.score + 1
             print("Kollision højre paddle")
 
-        # Start forfra hvis vi rammer venstre eller højre kant
+        # Returner bolden hvis vi rammer venstre
         if self.x <= 0:
-            self.x = self.start_x
-            self.y = self.start_y
-            self.score = 0
-        if self.x >= self.skaerm_bredde- self.diameter:
-            self.x = self.start_x
-            self.y = self.start_y
-            self.score = 0
+            self.retning_x_y[0] = - self.retning_x_y[0]
+            self.hoejre = True
+            print("Kollision venstre kant")
+
+        # top 
+        if self.y <= 0:
+            self.retning_x_y[1] = - self.retning_x_y[1]
+            print("Kollision top")
+
+
+        # eller bund
+        if self.y >= self.skaerm_hoejde - self.diameter:
+            self.retning_x_y[1] = - self.retning_x_y[1]
+            print("Kollision bund")
+
+        self.x += self.retning_x_y[0]
+        self.y += self.retning_x_y[1]
 
         # Opdater cirkelens position
         self.circle.x = self.x

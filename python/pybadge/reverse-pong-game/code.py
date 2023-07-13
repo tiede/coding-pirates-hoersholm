@@ -28,18 +28,15 @@ color_palette[1] = 0xFFFF00
 bg_sprite = displayio.TileGrid(color_bitmap, x=0, y=0, pixel_shader=color_palette)
 splash.append(bg_sprite)
 
-# Tegn paddles
+# Tegn paddle
 bredde = 5
 hoejde = 30
-
-paddle_venstre = Paddle(bredde, hoejde, 0, 0, SCREEN_HEIGHT)
-splash.append(paddle_venstre.rect)
 
 paddle_hoejre = Paddle(bredde, hoejde, SCREEN_WIDTH - bredde, SCREEN_HEIGHT - hoejde, SCREEN_HEIGHT)
 splash.append(paddle_hoejre.rect)
 
 # Tegn bold
-bold = Ball(3, int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2), SCREEN_HEIGHT, SCREEN_WIDTH)
+bold = Ball(3, 20, int(SCREEN_HEIGHT/2), SCREEN_HEIGHT, SCREEN_WIDTH)
 splash.append(bold.circle)
 
 # Score
@@ -54,8 +51,7 @@ nu = 0
 while True:
     nu = time.monotonic()
     if sidst_opdateret + FPS_FORSINKELSE <= nu:
-        paddle_venstre.update()
         paddle_hoejre.update()
-        bold.update(paddle_venstre, paddle_hoejre, score_label)
+        bold.update(paddle_hoejre, score_label)
 
         sidst_opdateret = nu
