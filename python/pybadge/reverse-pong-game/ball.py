@@ -33,7 +33,7 @@ class Ball:
             self.score = 0
 
         # Check om vi rammer paddle            
-        if self.x == paddle_hoejre.x - self.diameter and paddle_hoejre.y < self.y < paddle_hoejre.y + paddle_hoejre.hoejde:
+        if self.x + self.diameter >= paddle_hoejre.x and paddle_hoejre.y < self.y + self.diameter < paddle_hoejre.y + paddle_hoejre.hoejde:
             # Hvis vi rammer højre paddle så skift retning til at bevæge sig mod venstre
             self.retning_x_y[0] = - self.retning_x_y[0]
             self.score = self.score + 1
