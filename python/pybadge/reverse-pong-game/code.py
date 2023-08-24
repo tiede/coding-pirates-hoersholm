@@ -13,8 +13,18 @@ from ball import Ball
 SCREEN_WIDTH = 160
 SCREEN_HEIGHT = 128
 
-FPS = 60
-FPS_FORSINKELSE = 1 / FPS
+score = 0
+
+fps = 60
+
+def game_over():
+    global score, fps
+    score = 0
+    fps = 60
+
+def faaet_point():
+    global score
+    score = score + 1
 
 # Lav display
 splash = displayio.Group()
@@ -50,8 +60,12 @@ nu = 0
 
 while True:
     nu = time.monotonic()
-    if sidst_opdateret + FPS_FORSINKELSE <= nu:
+    if sidst_opdateret + (1 / fps) <= nu:
         paddle_hoejre.update()
-        bold.update(paddle_hoejre, score_label)
+        bold.update(paddle_hoejre, faaet_point, game_over)
+        score_label.text = str(score)
 
         sidst_opdateret = nu
+
+    if score % 10 == 0 and score > 0 and fps < 120:
+        fps = fps + 30

@@ -4,7 +4,7 @@ from adafruit_pybadger import pybadger
 class Ball:
     def __init__(self, diameter, start_x, start_y, skaerm_hoejde, skaerm_bredde):
         # Gem i variabler
-        self.score = 0
+        #self.score = 0
         self.diameter = diameter
         self.x = start_x
         self.y = start_y
@@ -23,20 +23,20 @@ class Ball:
 
         self.retning_x_y = [1, 1]
 
-    def update(self, paddle_hoejre, score_label):
+    def update(self, paddle_hoejre, faaet_point, game_over):
         # print("Inde i ball update")
 
         # Start forfra hvis vi rammer højre kant
         if self.x >= self.skaerm_bredde:
             self.x = self.start_x
             self.y = self.start_y
-            self.score = 0
+            game_over()
 
         # Check om vi rammer paddle            
         if self.x + self.diameter >= paddle_hoejre.x and paddle_hoejre.y < self.y + self.diameter < paddle_hoejre.y + paddle_hoejre.hoejde:
             # Hvis vi rammer højre paddle så skift retning til at bevæge sig mod venstre
             self.retning_x_y[0] = - self.retning_x_y[0]
-            self.score = self.score + 1
+            faaet_point()
             print("Kollision højre paddle")
 
         # Returner bolden hvis vi rammer venstre
@@ -50,7 +50,6 @@ class Ball:
             self.retning_x_y[1] = - self.retning_x_y[1]
             print("Kollision top")
 
-
         # eller bund
         if self.y >= self.skaerm_hoejde - self.diameter:
             self.retning_x_y[1] = - self.retning_x_y[1]
@@ -62,6 +61,3 @@ class Ball:
         # Opdater cirkelens position
         self.circle.x = self.x
         self.circle.y = self.y
-
-        # Opdater score
-        score_label.text = str(self.score)
