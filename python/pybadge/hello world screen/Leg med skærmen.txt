@@ -1,0 +1,17 @@
+Leg med skærmen
+
+
+* Skift teksten 
+* Skift farve på teksten
+* Scroll teksten (x eller y eller begge)
+
+Leg med firgurer
+
+* Tegn en firkant
+* Skift farve på firkanten
+* Flyt firkanten rundt
+
+Leg med knapper
+
+
+Leg med LED
