@@ -1,3 +1,7 @@
+'''
+Ændre hastighed over tid
+'''
+
 import board
 import displayio
 import terminalio

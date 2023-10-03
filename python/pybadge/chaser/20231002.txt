@@ -1,0 +1,8 @@
+Eksperimenter
+
+* Ændre farver på firkant og cirkel
+* Gør firkanten større
+* Gør firkanten mindre
+* Skriv "score: " foran score
+* Sæt hastigheden på spillet op
+* 
