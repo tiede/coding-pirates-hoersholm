@@ -1,7 +1,3 @@
-'''
-NeoPixel
-'''
-
 import board
 import displayio
 import terminalio
@@ -36,19 +32,6 @@ def intersect():
     
     return False
 
-def play_game_over_sound():
-    C = 261
-    G = 392
-    A = 440
-    E = 329
-
-    pybadger.play_tone(C, duration=0.3)
-    pybadger.play_tone(G, duration=0.1)
-    pybadger.play_tone(A, duration=0.1)
-    pybadger.play_tone(G, duration=0.1)
-    pybadger.play_tone(E, duration=0.3)
-    pybadger.play_tone(C, duration=0.4)
-
 splash = displayio.Group()
 board.DISPLAY.show(splash)
 
@@ -70,44 +53,67 @@ splash.append(text_score)
 
 level = 1
 level_score = 0
-text_level = label.Label(terminalio.FONT, text="Level " + str(level), color=0xFFFFFF, x=0, y=128-5)
+text_level = label.Label(terminalio.FONT, text = "Level " + str(level), color=0xFFFFFF, x=0, y= 120)
 splash.append(text_level)
 
-rounds = 1
-rounds_per_level = 10
-speed = 500
-ticks = 0
+text_game_over = label.Label(terminalio.FONT, text = "GAME OVER!!!", color=0xFF0000, x=20, y=int(SCREEN_HEIGHT/2), scale=2)
+
+reset_game = False
 game_over = False
 game_stopped = False
-
+speed = 500
+rounds = 1
+rounds_per_level = 5
+ticks = 0
 while True:
+
+    if reset_game:
+        score = 0
+        level = 1
+        rounds = 1
+        ticks = 0
+        speed = 500
+        game_over = False
+        game_stopped = False
+        reset_game = False
+        text_level.text = "Level " + str(level)
+        if text_game_over in splash:
+            splash.remove(text_game_over)
+
+    if pybadger.button.start:
+        reset_game = True
+
     if game_over:
         if not game_stopped:
-            text_area_game_over = label.Label(terminalio.FONT, text="GAME OVER", color=0xFF0000, x=50, y=64)
-            splash.append(text_area_game_over)
-            pybadger.pixels[0] = 0xFF0000
-            play_game_over_sound()
-            pybadger.pixels[0] = 0x000000
-        game_stopped = True
+            splash.append(text_game_over)
+            game_stopped = True
+            while not pybadger.button.start:
+                time.sleep(0.1)
+                text_game_over.color = 0x000000
+                time.sleep(0.1)
+                text_game_over.color = 0xFF0000
+            reset_game = True
     else:
         if ticks == speed:
             while True:
-                rectangle_x = random.randint(0, SCREEN_WIDTH - width)
-                rectangle_y = random.randint(0, SCREEN_HEIGHT - height)
-                rectangle.x = rectangle_x
-                rectangle.y = rectangle_y
+                rectangle.x = random.randint(0, SCREEN_WIDTH - width)
+                rectangle.y = random.randint(0, SCREEN_HEIGHT - height)
                 if not intersect():
+                    ticks = 0
+                    rounds = rounds + 1
                     break
-            ticks = 0
-            rounds = rounds + 1
 
         if rounds == rounds_per_level:
             if level_score > 0:
                 speed = int(speed - speed * 0.1)
+                if speed < 100:
+                    speed = 100
                 rounds = 1
                 level = level + 1
                 level_score = 0
                 text_level.text = "Level " + str(level)
+                print (speed)
+                print (ticks)
             else:
                 game_over = True
 
@@ -125,13 +131,10 @@ while True:
                 circle.x = circle.x + 1
 
         if intersect():
-            pybadger.pixels[0] = 0x00FF00
             score = score + 1
             level_score = level_score + 1
             rectangle.x = -100
             rectangle.y = -100
-            ticks = 250
-            pybadger.pixels[0] = 0x000000
 
         text_score.text = str(score)
 
