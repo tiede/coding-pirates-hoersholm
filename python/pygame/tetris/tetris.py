@@ -1,4 +1,5 @@
 import pygame
+import random
 
 SCREEN_X = 800
 SCREEN_Y = 700
@@ -19,10 +20,75 @@ LIGHT_BLUE = '#00FFFF'
 
 score = hiscore = 0
 
+BRIK1 = [
+    [
+        '.....',
+        '.XX..',
+        '.XX..',
+        '.....',
+        '.....'
+    ]
+]
+
+BRIK2 = [
+    [
+        '..X..',
+        '..X..',
+        '..X..',
+        '..X..',
+        '.....'
+    ],
+    [
+        '.....',
+        'XXXX.',
+        '.....',
+        '.....',
+        '.....'
+    ]
+]
+
+BRIK3 = [
+    [
+        '..X..',
+        '..X..',
+        '..XX.',
+        '.....'
+    ],
+    [
+        '.....',
+        '.XXX.',
+        '.X...',
+        '.....'
+    ],
+    [
+        '.....',
+        '..XX.',
+        '...X.',
+        '...X.'
+    ],
+    [
+        '.....',
+        '...X.',
+        '.XXX.',
+        '.....'
+    ]
+]
+
+BRIKLISTE = [BRIK1, BRIK2, BRIK3]
+BRIKFARVER = [RED, GREEN, LIGHT_BLUE, YELLOW, ORANGE, BLUE, MAGENTA]
+
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
 
 clock = pygame.time.Clock()
+
+class mitobjekt (object):
+    def __init__(self, x, y, form):
+        self.x = x
+        self.y = y
+        self.form = form
+        self.farve = BRIKFARVER[BRIKLISTE.index(form)]
+        self.rotation = 0
 
 def get_center_x(rect):
     return SCREEN_X / 2 - rect.centerx
@@ -94,9 +160,17 @@ def start_game():
     screen.blit(label, (500, 600))
 
     playing_field = [[(BLACK) for _ in range(10)] for _ in range(20)]
-    playing_field[0][0] = ORANGE
-    playing_field[0][1] = ORANGE
     draw_grid(playing_field)
+
+    naestebrik = mitobjekt(1,0,random.choice(BRIKLISTE))
+    format = naestebrik.form[naestebrik.rotation % len (naestebrik.form)]
+    pos_x = 420
+    pos_y = 350
+    for y, line in enumerate(format):
+        row = list(line)
+        for x, column in enumerate(row):
+            if (column == 'X'):
+                pygame.draw.rect(screen, naestebrik.farve, (pos_x + x*BRIK, pos_y + y*BRIK, BRIK, BRIK), 0)
 
     clock.tick(60)
     pygame.display.update()
