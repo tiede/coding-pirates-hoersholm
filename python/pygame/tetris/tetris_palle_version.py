@@ -145,6 +145,21 @@ def tegnbane(brugteplaceringer = {}):
                 bane[y][x] = farve
     return bane
 
+def tegnbrik(brik):
+    positions = []
+    format = brik.form[brik.rotation % len(brik.form)]
+
+    for i, line in enumerate(format):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == 'X':
+                positions.append((brik.x + j, brik.y + i))
+
+    for i, pos in enumerate(positions):
+        positions[i] = (pos[0] - 2, pos[1] - 4)
+
+    return positions
+
 def lovlig_placering(brik, bane):
     accepteret_position = [[ (x,y) for x in range(10) if bane[y][x] == (0,0,0)] for y in range(20)]
     accepteret_position = [x for sub in accepteret_position for x in sub]
