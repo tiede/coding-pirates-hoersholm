@@ -172,26 +172,26 @@ def lovlig_placering(brik,bane):
                 return False
     return True
 
-def fjern_raekke(bane, brugteplaceringer):
+def fjern_raekke(bane,brugteplaceringer):
     taeller = 0
-    for x in range(len(bane) - 1, -1, -1):
+    for x in range(len(bane)-1,-1,-1):
         raekke = bane[x]
         if (0,0,0) not in raekke:
             taeller += 1
-            test = 1
+            test = x # IKKE 1 men x !!!!!!!
             for y in range(len(raekke)):
                 try:
                     del brugteplaceringer[(y,x)]
                 except:
-                    continue
-
-    if taeller > 1:
-        for key in sorted(list(brugteplaceringer), key = lambda x : x[1]) [::-1]:
+                    continue    
+    if taeller > 0:  # RETTES til 0
+        for key in sorted(list(brugteplaceringer), key= lambda x: x[1]) [::-1]:
             x, y = key
             if y < test:
                 newkey = (x,y + taeller)
                 brugteplaceringer[newkey] = brugteplaceringer.pop(key)
-                return taeller
+
+    return taeller
 
 def spillet():
     # baggrundsfarven
