@@ -240,7 +240,14 @@ def spillet():
     # Vi skal lige opdatere skaermen
     pygame.display.update()
 
+    # startvaerdier
+    tid = pygame.time.Clock()
+    briktid = 0
+    hastighed = 0.80
     brugteplaceringer = {}
+    vent = True
+    udskift_brik = False
+    
     vent = True
     while vent:
         bane = tegnbane(brugteplaceringer)
