@@ -193,6 +193,16 @@ def fjern_raekke(bane,brugteplaceringer):
 
     return taeller
 
+def tegn_naeste_brik(skaerm, naestebrik):
+    pos_x = 420
+    pos_y = 350
+    format = naestebrik.form[naestebrik.rotation % len(naestebrik.form)]
+    for y, line in enumerate(format):
+        row = list(line)
+        for x, column in enumerate(row):
+            if column == 'X':
+                pygame.draw.rect(skaerm,naestebrik.farve, (pos_x + x*BRIK, pos_y + y*BRIK, BRIK, BRIK), 0)
+
 def spillet():
     # baggrundsfarven
     skaerm = pygame.display.set_mode((SKAERM_X,SKAERM_Y))
@@ -226,13 +236,14 @@ def spillet():
     # Lad os tegne den naeste brik
     naestebrik = mitobjekt(1,0,random.choice(BRIKLISTE))
     format = naestebrik.form[naestebrik.rotation % len(naestebrik.form)]
-    pos_x = 420
-    pos_y = 350
-    for y, line in enumerate(format):
-        row = list(line)
-        for x, column in enumerate(row):
-            if column == 'X':
-                pygame.draw.rect(skaerm,naestebrik.farve, (pos_x + x*BRIK, pos_y + y*BRIK, BRIK, BRIK), 0)
+    tegn_naeste_brik(skaerm, naestebrik)
+    # pos_x = 420
+    # pos_y = 350
+    # for y, line in enumerate(format):
+    #     row = list(line)
+    #     for x, column in enumerate(row):
+    #         if column == 'X':
+    #             pygame.draw.rect(skaerm,naestebrik.farve, (pos_x + x*BRIK, pos_y + y*BRIK, BRIK, BRIK), 0)
 
     # Så skal vi lige den aktuelle brik vi skal flytte rundt paa
     ny_brik = mitobjekt(1,0,random.choice(BRIKLISTE))
@@ -317,6 +328,7 @@ def spillet():
                 brugteplaceringer[p] = ny_brik.farve
             ny_brik = naestebrik
             naestebrik = mitobjekt(1,0,random.choice(BRIKLISTE))
+            tegn_naeste_brik(skaerm, naestebrik)
             udskift_brik = False
             fjern_raekke(bane, brugteplaceringer)
             #score += 10
