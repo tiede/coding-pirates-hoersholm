@@ -160,10 +160,16 @@ def tegnbrik(brik):
 
     return positions
 
-def lovlig_placering(brik, bane):
-    accepteret_position = [[ (x,y) for x in range(10) if bane[y][x] == (0,0,0)] for y in range(20)]
-    accepteret_position = [x for sub in accepteret_position for x in sub]
+def lovlig_placering(brik,bane):
+    accepteretposition = [[(x, y) for x in range(10) if bane[y][x] == (0,0,0)] for y in range(20)]
+    accepteretposition = [x for sub in accepteretposition for x in sub]
 
+    formatted = tegnbrik(brik)
+
+    for pos in formatted:
+        if pos not in accepteretposition:
+            if pos[1] > -1:
+                return False
     return True
 
 def fjern_raekke(bane, brugteplaceringer):
