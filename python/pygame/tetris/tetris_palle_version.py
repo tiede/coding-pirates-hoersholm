@@ -251,6 +251,16 @@ def spillet():
     vent = True
     while vent:
         bane = tegnbane(brugteplaceringer)
+        briktid += tid.get_rawtime()
+        tid.tick()
+        #print(str(briktid))
+        if briktid/1000 > hastighed:
+            briktid = 0
+            ny_brik.y += 1
+            if not(lovlig_placering(ny_brik, bane)) and ny_brik.y > 0:
+                ny_brik.y -= 1
+                udskift_brik = True
+
         for knap in pygame.event.get():
             if knap.type == pygame.quit:
                 vent = False
@@ -301,6 +311,23 @@ def spillet():
             if y > -1:
                 bane[y][x] = ny_brik.farve
 
+        if udskift_brik:
+            for pos in placering:
+                p = (pos[0], pos[1])
+                brugteplaceringer[p] = ny_brik.farve
+            ny_brik = naestebrik
+            naestebrik = mitobjekt(1,0,random.choice(BRIKLISTE))
+            udskift_brik = False
+            fjern_raekke(bane, brugteplaceringer)
+            #score += 10
+            #print(str(score))
+            
+            for pos in placering:
+                x, y = pos
+                if y < 1:
+                    print("Game Over")
+                    vent = False
+                    
         opdater_bane(skaerm,bane)    
     pygame.display.update()
 
