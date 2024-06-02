@@ -145,7 +145,7 @@ def tegnbane(brugteplaceringer = {}):
                 bane[y][x] = farve
     return bane
 
-def tegnbrik(brik):
+def find_brik_positioner(brik):
     positions = []
     format = brik.form[brik.rotation % len(brik.form)]
 
@@ -164,9 +164,9 @@ def lovlig_placering(brik,bane):
     accepteretposition = [[(x, y) for x in range(10) if bane[y][x] == (0,0,0)] for y in range(20)]
     accepteretposition = [x for sub in accepteretposition for x in sub]
 
-    formatted = tegnbrik(brik)
+    brik_positioner = find_brik_positioner(brik)
 
-    for pos in formatted:
+    for pos in brik_positioner:
         if pos not in accepteretposition:
             if pos[1] > -1:
                 return False
@@ -325,11 +325,12 @@ def spillet():
             for pos in placering:
                 x, y = pos
                 if y < 1:
+                    print(str(y))
                     print("Game Over")
                     vent = False
 
         opdater_bane(skaerm,bane)    
-    pygame.display.update()
+        pygame.display.update()
 
 # start spillet
 startskaerm()
