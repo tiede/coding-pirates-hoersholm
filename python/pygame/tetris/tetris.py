@@ -90,6 +90,12 @@ class mitobjekt (object):
         self.farve = BRIKFARVER[BRIKLISTE.index(form)]
         self.rotation = 0
 
+def lovlig_placering(brik, playing_field):
+    accepteret_position = [[ (x,y) for x in range(10) if playing_field[y,x] == (0,0,0)] for y in range(20)]
+    accepteret_position = [x for sub in accepteret_position for x in sub]
+
+    return True
+
 def get_center_x(rect):
     return SCREEN_X / 2 - rect.centerx
 
@@ -133,6 +139,14 @@ def draw_grid(playing_field):
     # Draw a rect around the grid
     pygame.draw.rect(screen, RED, pygame.Rect(pos_x, pos_y, BANE_X, BANE_Y), width=2)
 
+def update_playing_field(screen, playing_field):
+    pos_x = 50
+    pos_y = 90
+    for i in range(len(playing_field)):
+        for j in range(len(playing_field[i])):
+            pygame.draw.rect(screen, playing_field[i][j], (pos_x + j * BRIK, pos_y + i*BRIK, BRIK, BRIK), 0)
+    draw_grid(playing_field)
+
 def start_game():
     screen.fill(BLACK)
 
@@ -162,24 +176,56 @@ def start_game():
     playing_field = [[(BLACK) for _ in range(10)] for _ in range(20)]
     draw_grid(playing_field)
 
-    naestebrik = mitobjekt(1,0,random.choice(BRIKLISTE))
-    format = naestebrik.form[naestebrik.rotation % len (naestebrik.form)]
-    pos_x = 420
+    next_tetromino = mitobjekt(1,0,random.choice(BRIKLISTE))
+    format = next_tetromino.form[next_tetromino.rotation % len (next_tetromino.form)]
+    pos_x = 500
     pos_y = 350
     for y, line in enumerate(format):
         row = list(line)
         for x, column in enumerate(row):
             if (column == 'X'):
-                pygame.draw.rect(screen, naestebrik.farve, (pos_x + x*BRIK, pos_y + y*BRIK, BRIK, BRIK), 0)
+                pygame.draw.rect(screen, next_tetromino.farve, (pos_x + x*BRIK, pos_y + y*BRIK, BRIK, BRIK), 0)
 
-    clock.tick(60)
-    pygame.display.update()
+    ny_brik = mitobjekt(1,0, random.choice(BRIKLISTE))
 
     running = True
     while (running):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                     running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    ny_brik.x -= 1
+                elif event.key == pygame.K_RIGHT:
+                    ny_brik.x += 1
+                elif event.key == pygame.K_UP:
+                    ny_brik.rotation += 1
+                elif event.key == pygame.K_DOWN:
+                    ny_brik.y += 1
+        
+        # Tegn ny brik på skærmen
+        ny_brik_format = ny_brik.form[ny_brik.rotation % len(ny_brik.form)]
+        placering = []
+
+        for y, line in enumerate(ny_brik_format):
+            row = list(line)
+            for x, column in enumerate(row):
+                if column == 'X':
+                    placering.append((ny_brik.x + x, ny_brik.y + y))
+                    #pygame.draw.rect(screen, ny_brik.farve, )
+
+        for i, pos in enumerate(placering):
+            placering[i] = (pos[0] - 1, pos[1] - 1)
+
+        for i, pos in enumerate(placering):
+            x, y = placering[i]
+            if y > -1:
+                playing_field[y][x] = ny_brik.farve
+                
+        update_playing_field(screen, playing_field)
+
+        clock.tick(60)
+        pygame.display.update()
 
 if (show_start_screen()):
     start_game()
