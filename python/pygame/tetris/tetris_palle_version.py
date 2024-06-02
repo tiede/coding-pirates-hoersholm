@@ -140,8 +140,8 @@ def tegnbane(brugteplaceringer = {}):
     bane = [[(0,0,0) for _ in range(10)] for _ in range(20)]
     for y in range(len(bane)):
         for x in range(len(bane[y])):
-            if (y,x) in brugteplaceringer:
-                farve = brugteplaceringer[(y,x)]
+            if (x,y) in brugteplaceringer:
+                farve = brugteplaceringer[(x,y)]
                 bane[y][x] = farve
     return bane
 
@@ -327,7 +327,7 @@ def spillet():
                 if y < 1:
                     print("Game Over")
                     vent = False
-                    
+
         opdater_bane(skaerm,bane)    
     pygame.display.update()
 
