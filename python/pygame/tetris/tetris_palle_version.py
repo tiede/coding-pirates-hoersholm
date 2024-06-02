@@ -196,6 +196,10 @@ def fjern_raekke(bane,brugteplaceringer):
 def tegn_naeste_brik(skaerm, naestebrik):
     pos_x = 420
     pos_y = 350
+    
+    # Tegn sort firkant til at slette tidligere brikker
+    pygame.draw.rect(skaerm, BLACK, (pos_x, pos_y, BRIK*5, BRIK*5), 0)
+
     format = naestebrik.form[naestebrik.rotation % len(naestebrik.form)]
     for y, line in enumerate(format):
         row = list(line)
