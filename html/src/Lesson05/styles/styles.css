@@ -1,0 +1,30 @@
+ body {
+    font-family: 'comic sans ms';
+}
+
+button {
+    padding: 20px 30px;
+    margin-top: 20px;
+}
+
+.inputfelter {
+    margin: 25px;
+}
+
+label {
+    width: 100px;
+    display: inline-block;
+}
+
+input {
+    font-size: 15px;
+    padding: 10px;
+}
+
+.orange {
+    color: orange;
+}
+
+.blue {
+    color: blue;
+}
