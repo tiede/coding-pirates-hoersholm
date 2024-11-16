@@ -23,7 +23,7 @@ function calculateAge() {
     stopConfetti();
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
-    var currentMonth = currentDate.getMonth();
+    var currentMonth = currentDate.getMonth() + 1;
     var currentDay = currentDate.getDate(); 
 
     var birthDay = document.getElementById('birthday').value;
@@ -33,17 +33,20 @@ function calculateAge() {
     var calculatedAge = currentYear - birthYear;
 
     // Hvis måned nu er mindre end fødselsmåned, så har du ikke haft fødselsdag endnu
-    if (currentMonth < birthMonth - 1) {
+    if (currentMonth < birthMonth) {
         calculatedAge--;
     }
     // 
-    if (birthMonth == currentMonth + 1 && currentDay < birthDay) {
+    if (birthMonth == currentMonth && currentDay < birthDay) {
         calculatedAge--;
     }
     console.log(calculatedAge);
     
     var msg = "Du er " + calculatedAge + " år gammel!";
-    if (birthDay == currentDay && birthMonth == currentMonth + 1) {
+    if (birthDay == currentDay && birthMonth == currentMonth) {
+        canvas = document.getElementById("confetti-canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         startConfetti();
         var birthdayMsg = "Du har fødselsdag i dag - TILLYKKE";
         msg = birthdayMsg + "<br />" + msg;
