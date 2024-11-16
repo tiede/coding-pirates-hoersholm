@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fødselsdagsberegner!</title>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+        <link href="styles/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1 id="overskrift">Lad mig fortælle dig hvor gammel du er...</h1>
+        Indtast din fødselsdato</br>
+        <label for="birthday">Dag</label></br>
+        <input type="text" id="birthday" 
+            inputmode="numeric"
+            pattern="\d*"
+            size="2"
+            maxlength="2">
+        </br>
+        <label for="birthmonth">Måned</label></br>
+        <input type="text" id="birthmonth" 
+            inputmode="numeric"
+            pattern="\d*"
+            size="2"
+            maxlength="2">
+        </br>
+        <label for="birthyear">År</label></br>
+        <input type="text" id="birthyear" 
+            inputmode="numeric"
+            pattern="\d*"
+            size="4"
+            maxlength="4">
+        </br>
+        <button id="calculate" onclick="calculateAge()">Beregn</button>
+        <div id="result">Jeg har ikke beregnet din alder endnu</div>
+        
+        
+        <script type="text/javascript" src="scripts/script.js"></script>
+    </body>
+</html>
