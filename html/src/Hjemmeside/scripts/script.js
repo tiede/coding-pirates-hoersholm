@@ -32,5 +32,24 @@ function calculateAge() {
     var birthYear = document.getElementById("birthyear").value;
 
     var calculatedAge = currentYear - birthYear;
-    alert(calculatedAge);
+
+    if (currentMonth < birthMonth) {
+        calculatedAge = calculatedAge - 1;
+    }
+
+    if (birthMonth == currentMonth && currentDay < birthDay) {
+        calculatedAge = calculatedAge - 1;
+    }
+
+    var message = "Du er " + calculatedAge + " år gammel";
+    if (birthDay == currentDay && birthMonth == currentMonth) {
+        message = "DU har fødselsdag - stort tilykke!!!";
+        var canvas = document.getElementById('confetti-canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        startConfetti();
+    }
+
+    
+    document.getElementById('result').innerHTML = message;
 }
