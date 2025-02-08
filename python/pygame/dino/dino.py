@@ -14,13 +14,7 @@ hojde = 300
 bredde = 800
 
 skaerm = pygame.display.set_mode((bredde, hojde))
-skaerm = pygame.display.set_mode((bredde, hojde))
 
-billede_jord = pygame.image.load("jord.png")
-billede_dino = pygame.image.load("dinoer.png")
-billede_dino_duk = pygame.image.load("dinoduk.png")
-billede_kaktus = pygame.image.load("kaktus.png")
-billede_fugl = pygame.image.load("fugl.png")
 billede_jord = pygame.image.load("jord.png")
 billede_dino = pygame.image.load("dinoer.png")
 billede_dino_duk = pygame.image.load("dinoduk.png")
