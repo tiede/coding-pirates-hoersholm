@@ -1,4 +1,3 @@
-
 import pygame
 import random
 from pygame.locals import *
@@ -12,6 +11,8 @@ hojde = 300
 bredde = 800
 hojde = 300
 bredde = 800
+hastighed = 14
+kollision_margen = 4
 
 skaerm = pygame.display.set_mode((bredde, hojde))
 
@@ -69,7 +70,7 @@ er_det_tid_til_en_fugl = False
 def dino_hopper():
     if dino['opad']:
         dino['y'] -= 20
-        if dino['y'] <= hojde - 95-10-95 -20:
+        if dino['y'] <= hojde - 95-10-95-60:
             dino['opad'] = False 
     else:
         dino['y'] += 20
@@ -82,7 +83,17 @@ def dino_hopper():
 def dino_dukker():
     pass
 
-while kor:  
+def game_over():
+    skrifttype = pygame.font.SysFont('Arial', 80, True)
+    game_over_tekst = skrifttype.render('GAME OVER!!', True, (255,0,255))
+    skaerm.blit(game_over_tekst, (200, 200))
+    pygame.display.flip()
+
+while kor:
+
+    kaktus_rect = None
+    dino_rect = None
+
     # Rens skærm
     skaerm.fill((255,255,255))
     skaerm.blit(billede_jord, (jord['x1'], jord['y']))
@@ -122,7 +133,7 @@ while kor:
     dino_width = dino['bredde']
     dino_height = dino['hojde']
     dino_rect = (dino_left, dino_top, dino_width, dino_height)
-    skaerm.blit(billede_dino, (dino['x'], dino['y']), dino_rect)
+    dino_rect = skaerm.blit(billede_dino, (dino['x'], dino['y']), dino_rect)
 
     if (fugl['billede_nr'] == 0):
         fugl['billede_nr'] = 1
@@ -136,30 +147,40 @@ while kor:
     fugl_rect = (fugl_left, fugl_top, fugl_width, fugl_height)
     skaerm.blit(billede_fugl, (fugl['x'], fugl['y']), fugl_rect)
 
-    fugl['x'] -= 20
+    fugl['x'] -= hastighed*2
 
     kaktus_left = kaktus['bredde'] * kaktus['billede_nr']
     kaktus_top = 0
     kaktus_width = kaktus['bredde']
     kaktus_height = kaktus['hojde']
     if (er_det_tid_til_en_kaktus):
-        skaerm.blit(billede_kaktus, (kaktus['x'], kaktus['y']), (kaktus_left, kaktus_top, kaktus_width, kaktus_height))
+        kaktus_rect = skaerm.blit(billede_kaktus, (kaktus['x'], kaktus['y']), (kaktus_left, kaktus_top, kaktus_width, kaktus_height))
 
-    if (antal_point % 1000 == 0):
+    if (hastighed > 0 and antal_point % (hastighed * 100) == 0):
         er_det_tid_til_en_kaktus = True
         kaktus['x'] = 800
 
-    kaktus['x'] -= 10
+    kaktus['x'] -= hastighed
 
-    jord['x1'] -= 10
+    jord['x1'] -= hastighed
     jord['x2'] = jord['bredde'] + jord['x1']
     if (jord['x1'] * -1 >= jord['bredde']):
         jord['x1'] = 0
 
-    antal_point += 10
+    antal_point += hastighed
 
     if(antal_point > high_score):
         high_score = antal_point
+
+    if dino['x'] + dino['bredde'] > kaktus['x'] + kollision_margen:
+        if dino['x'] < kaktus['x'] - kollision_margen:
+            if dino['y'] + dino['hojde'] > kaktus['y'] + kollision_margen:
+                #print('game over')
+                #hastighed = 0
+                game_over()
+
+    # if kaktus_rect is not None and dino_rect.colliderect(kaktus_rect):
+    #     print('Game over')
 
     pygame.display.flip()
     FramePerSec.tick(FPS)
