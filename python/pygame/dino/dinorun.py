@@ -7,7 +7,7 @@ pygame.init()
 højde = 300
 bredde = 800
 
-FPS = 30
+FPS = 20
 FramePerSec = pygame.time.Clock()
 
 #Så bestemmer vi størrelsen på skærmen/vinduet som spillet skal køre i.
@@ -45,15 +45,18 @@ kør = True
 
 def setup():
     global antalpoint, erdettidtilenkaktus, erdettidtilenfugl, kør
-    global dino, fugl, kaktus, jord
+    global dino, dino_duk, fugl, kaktus, jord
+    global FPS
     antalpoint = 0
     erdettidtilenfugl = False
     erdettidtilenkaktus = False
     kør = True
     dino = {'x': 100, 'y':højde-95-10,'bredde':440/5, 'højde':95, 'billede_nr':2,'hopper':False, 'y_min': højde-95,'opad': True,'dukker':False}
+    dino_duk = {'x': 100, 'y' : højde - 61, 'bredde' : 236/2, 'højde': 61, 'billede_nr': 0}
     fugl = {'x': bredde-80, 'y': højde-140-10, 'bredde':184/2, 'højde':81,'billede_nr':1}
     kaktus = {'x': bredde-34, 'y':højde-70-13,'bredde':204/6, 'højde':70, 'billede_nr':2}
     jord = {'x1':0, 'x2':1203, 'y': højde-19, 'bredde': 1203}
+    FPS = 20
 
 def dino_hopper():
     if dino['opad']:
@@ -192,7 +195,7 @@ while kør:
         # erdettidtilenkaktus = False
     
     # Lad os tilføje en fugl til spillet
-    if antalpoint % 200 == 0:
+    if antalpoint % 270 == 0:
         erdettidtilenfugl = True
         fugl['x'] = bredde-80
 
