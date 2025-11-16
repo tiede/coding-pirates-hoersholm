@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://cohg8nysdt6xb"]
+[gd_scene load_steps=17 format=3 uid="uid://cohg8nysdt6xb"]
 
 [ext_resource type="PackedScene" uid="uid://c1mkv6n8ylqpk" path="res://hud___hiscore_og_point.tscn" id="1_jvg48"]
+[ext_resource type="Script" uid="uid://cngn8yrwmo42s" path="res://hud___hiscore_og_point.gd" id="2_04vox"]
 [ext_resource type="Texture2D" uid="uid://vjuyve6mwwr3" path="res://grafik/dinoer.png" id="2_q5jtt"]
 [ext_resource type="Script" uid="uid://by87003s73lmx" path="res://dinokode.gd" id="2_r478a"]
 [ext_resource type="Texture2D" uid="uid://dva7sp31mxw2k" path="res://grafik/jord.png" id="4_ljjs3"]
@@ -73,6 +74,7 @@ offset_left = 838.0
 offset_top = 51.0
 offset_right = 997.0
 offset_bottom = 111.0
+script = ExtResource("2_04vox")
 
 [node name="Dino" type="CharacterBody2D" parent="." groups=["Player"]]
 position = Vector2(82, 270)
