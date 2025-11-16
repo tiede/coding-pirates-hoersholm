@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://drg0u2h54tjx6"]
+
+[ext_resource type="Script" uid="uid://bdhvih4louf23" path="res://kaktus.gd" id="1_gsjhk"]
+[ext_resource type="Texture2D" uid="uid://5sgqegjbq10p" path="res://grafik/kaktus.png" id="2_46sli"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo071"]
+atlas = ExtResource("2_46sli")
+region = Rect2(0, 0, 68, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltn0m"]
+atlas = ExtResource("2_46sli")
+region = Rect2(68, 0, 68, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k5ml"]
+atlas = ExtResource("2_46sli")
+region = Rect2(136, 0, 68, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxfey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo071")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltn0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k5ml")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1i17"]
+size = Vector2(67, 68)
+
+[node name="Kaktus" type="CharacterBody2D" groups=["Kaktus"]]
+script = ExtResource("1_gsjhk")
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qxfey")
+autoplay = "default"
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_d1i17")
+metadata/_edit_lock_ = true

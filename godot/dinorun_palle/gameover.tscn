@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bm3t2yv8p26m4"]
+
+[node name="Gameover" type="Node2D"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 1025.0
+offset_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Game over label" type="Label" parent="PanelContainer/ColorRect"]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 134.0
+offset_right = 765.0
+offset_bottom = 351.0
+theme_override_font_sizes/font_size = 45
+text = "GAME OVER SUCKER"
+horizontal_alignment = 1
+vertical_alignment = 1

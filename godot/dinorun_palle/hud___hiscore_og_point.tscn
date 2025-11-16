@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1mkv6n8ylqpk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lknqt"]
+bg_color = Color(0.6856519, 0.038836703, 0.7691601, 0.3137255)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="HUD - Hiscore og point" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 158.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lknqt")
+
+[node name="PointTxt" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 6.0
+offset_right = 100.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Point"
+
+[node name="Point" type="Label" parent="."]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 7.0
+offset_right = 139.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#####"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HighscoreTxt" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 33.0
+offset_right = 86.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Hi-score"
+
+[node name="Highscore" type="Label" parent="."]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 34.0
+offset_right = 139.0
+offset_bottom = 57.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#####"
+horizontal_alignment = 2

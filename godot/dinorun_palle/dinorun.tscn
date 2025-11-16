@@ -1,0 +1,118 @@
+[gd_scene load_steps=16 format=3 uid="uid://cohg8nysdt6xb"]
+
+[ext_resource type="PackedScene" uid="uid://c1mkv6n8ylqpk" path="res://hud___hiscore_og_point.tscn" id="1_jvg48"]
+[ext_resource type="Texture2D" uid="uid://vjuyve6mwwr3" path="res://grafik/dinoer.png" id="2_q5jtt"]
+[ext_resource type="Script" uid="uid://by87003s73lmx" path="res://dinokode.gd" id="2_r478a"]
+[ext_resource type="Texture2D" uid="uid://dva7sp31mxw2k" path="res://grafik/jord.png" id="4_ljjs3"]
+[ext_resource type="PackedScene" uid="uid://drg0u2h54tjx6" path="res://kaktus.tscn" id="6_8sdfe"]
+[ext_resource type="PackedScene" uid="uid://4cy5dsytgdst" path="res://fugl.tscn" id="7_04vox"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r478a"]
+atlas = ExtResource("2_q5jtt")
+region = Rect2(0, 0, 88, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljjs3"]
+atlas = ExtResource("2_q5jtt")
+region = Rect2(176, 0, 88, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3nkj"]
+atlas = ExtResource("2_q5jtt")
+region = Rect2(264, 0, 88, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sdfe"]
+atlas = ExtResource("2_q5jtt")
+region = Rect2(88, 0, 88, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04vox"]
+atlas = ExtResource("2_q5jtt")
+region = Rect2(352, 0, 88, 95)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xs7f5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r478a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljjs3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3nkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sdfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04vox")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqfda"]
+custom_solver_bias = 1.0
+size = Vector2(88, 93)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3nkj"]
+size = Vector2(1028, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljjs3"]
+size = Vector2(1081, 20)
+
+[node name="dinorun" type="Node2D"]
+
+[node name="Baggrund" type="ColorRect" parent="."]
+offset_left = 13.0
+offset_top = -2.0
+offset_right = 1037.0
+offset_bottom = 510.0
+
+[node name="HUD - Hiscore og point" parent="." instance=ExtResource("1_jvg48")]
+offset_left = 838.0
+offset_top = 51.0
+offset_right = 997.0
+offset_bottom = 111.0
+
+[node name="Dino" type="CharacterBody2D" parent="." groups=["Player"]]
+position = Vector2(82, 270)
+script = ExtResource("2_r478a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Dino"]
+sprite_frames = SubResource("SpriteFrames_xs7f5")
+autoplay = "default"
+frame_progress = 0.119945
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dino"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_jqfda")
+metadata/_edit_lock_ = true
+
+[node name="himmel" type="StaticBody2D" parent="."]
+position = Vector2(644, -23)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="himmel"]
+position = Vector2(-132, 34)
+shape = SubResource("RectangleShape2D_j3nkj")
+
+[node name="Jord" type="StaticBody2D" parent="."]
+position = Vector2(644, -23)
+
+[node name="Sprite2D" type="Sprite2D" parent="Jord"]
+position = Vector2(-41, 524)
+texture = ExtResource("4_ljjs3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jord"]
+position = Vector2(-104, 528)
+shape = SubResource("RectangleShape2D_ljjs3")
+
+[node name="Fugl" parent="." instance=ExtResource("7_04vox")]
+position = Vector2(837, 184)
+hastighed = 250.0
+
+[node name="Fugl2" parent="." instance=ExtResource("7_04vox")]
+position = Vector2(720, 326)
+
+[node name="Kaktus" parent="." instance=ExtResource("6_8sdfe")]
+position = Vector2(940, 458)

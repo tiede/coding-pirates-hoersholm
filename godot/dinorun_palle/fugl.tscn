@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://4cy5dsytgdst"]
+
+[ext_resource type="Script" uid="uid://0bdehnqib3h0" path="res://fugl.gd" id="1_ak4yv"]
+[ext_resource type="Texture2D" uid="uid://cxxodg1hpxej1" path="res://grafik/fugl.png" id="2_th1cc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xs7f5"]
+atlas = ExtResource("2_th1cc")
+region = Rect2(0, 0, 92, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqfda"]
+atlas = ExtResource("2_th1cc")
+region = Rect2(92, 0, 92, 81)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_waha0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xs7f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqfda")
+}],
+"loop": true,
+"name": &"flyv",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbtin"]
+size = Vector2(86, 64)
+
+[node name="Fugl" type="CharacterBody2D" groups=["Fugl"]]
+script = ExtResource("1_ak4yv")
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_waha0")
+animation = &"flyv"
+autoplay = "flyv"
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sbtin")
+metadata/_edit_lock_ = true
